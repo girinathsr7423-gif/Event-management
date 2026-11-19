@@ -12,6 +12,11 @@
 #### **DEPARTMENT OF INFORMATION TECHNOLOGY**
 **Integrated Project-Based Assessment — Scenario 1**
 
+<br/>
+
+### 🌐 [**🚀 Click Here for Live Web Application**](https://girinathsr7423-gif.github.io/Event-management/)
+**Local Server URL:** [http://localhost:8080/](http://localhost:8080/)
+
 </div>
 
 ---
@@ -153,7 +158,12 @@ flowchart TD
 
 ## 🚀 Execution Instructions
 
-### 1. Database Setup
+### 1. Interactive Web Application & Analytics Dashboard
+- **Live Online:** **[https://girinathsr7423-gif.github.io/Event-management/](https://girinathsr7423-gif.github.io/Event-management/)**
+- **Local Server (Localhost):** Open **[http://localhost:8080/](http://localhost:8080/)**
+- **Windows One-Click Launch:** Double-click `web/run_server.bat` to launch the local web server anytime.
+
+### 2. Database Setup
 The relational database scripts are located in `database/`:
 - **SQLite (Zero configuration, plug-and-play)**: The database is automatically initialized by the application scripts.
 - **MySQL (Optional)**: Run the DDL and DML scripts in MySQL Workbench or CLI:
