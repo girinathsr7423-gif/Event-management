@@ -106,7 +106,7 @@
                        "date":  "2026-12-05",
                        "venue":  "Main Auditorium",
                        "cap":  120,
-                       "reg":  9
+                       "reg":  8
                    },
                    {
                        "id":  2,
@@ -126,7 +126,7 @@
                        "date":  "2026-12-18",
                        "venue":  "Seminar Hall 1",
                        "cap":  60,
-                       "reg":  5
+                       "reg":  4
                    },
                    {
                        "id":  4,
@@ -136,7 +136,7 @@
                        "date":  "2026-12-24",
                        "venue":  "Open Air Amphitheatre",
                        "cap":  250,
-                       "reg":  9
+                       "reg":  8
                    },
                    {
                        "id":  5,
@@ -146,7 +146,7 @@
                        "date":  "2027-01-08",
                        "venue":  "IoT Research Lab",
                        "cap":  35,
-                       "reg":  3
+                       "reg":  4
                    },
                    {
                        "id":  6,
@@ -156,7 +156,7 @@
                        "date":  "2027-01-15",
                        "venue":  "AI Innovation Lab",
                        "cap":  40,
-                       "reg":  5
+                       "reg":  4
                    },
                    {
                        "id":  7,
@@ -177,16 +177,29 @@
                        "venue":  "College Ground Stage",
                        "cap":  300,
                        "reg":  0
+                   },
+                   {
+                       "id":  9,
+                       "name":  "Hands-on Workshop on Generative AI \u0026 LLMs",
+                       "cat":  "Workshop",
+                       "dept":  "information technology",
+                       "date":  "2027-02-15",
+                       "venue":  "IT Conference Hall 1",
+                       "cap":  60,
+                       "reg":  1
+                   },
+                   {
+                       "id":  10,
+                       "name":  "Hands-on Workshop on Generative AI \u0026 LLMs",
+                       "cat":  "Workshop",
+                       "dept":  "Information Technology",
+                       "date":  "2027-02-15",
+                       "venue":  "IT Conference Hall 1",
+                       "cap":  59,
+                       "reg":  0
                    }
                ],
     "registrations":  [
-                          {
-                              "id":  1,
-                              "eventId":  1,
-                              "studentId":  1,
-                              "date":  "2026-11-20 09:30:00",
-                              "status":  "CONFIRMED"
-                          },
                           {
                               "id":  2,
                               "eventId":  1,
@@ -244,13 +257,6 @@
                               "status":  "CONFIRMED"
                           },
                           {
-                              "id":  10,
-                              "eventId":  2,
-                              "studentId":  1,
-                              "date":  "2026-11-21 08:30:00",
-                              "status":  "CONFIRMED"
-                          },
-                          {
                               "id":  11,
                               "eventId":  2,
                               "studentId":  2,
@@ -286,13 +292,6 @@
                               "status":  "CONFIRMED"
                           },
                           {
-                              "id":  16,
-                              "eventId":  3,
-                              "studentId":  1,
-                              "date":  "2026-11-22 14:00:00",
-                              "status":  "CONFIRMED"
-                          },
-                          {
                               "id":  17,
                               "eventId":  3,
                               "studentId":  3,
@@ -318,13 +317,6 @@
                               "eventId":  3,
                               "studentId":  12,
                               "date":  "2026-11-22 14:40:00",
-                              "status":  "CONFIRMED"
-                          },
-                          {
-                              "id":  21,
-                              "eventId":  4,
-                              "studentId":  1,
-                              "date":  "2026-11-23 10:00:00",
                               "status":  "CONFIRMED"
                           },
                           {
@@ -405,13 +397,6 @@
                               "status":  "CONFIRMED"
                           },
                           {
-                              "id":  33,
-                              "eventId":  6,
-                              "studentId":  1,
-                              "date":  "2026-11-25 15:00:00",
-                              "status":  "CONFIRMED"
-                          },
-                          {
                               "id":  34,
                               "eventId":  6,
                               "studentId":  6,
@@ -437,6 +422,27 @@
                               "eventId":  6,
                               "studentId":  11,
                               "date":  "2026-11-25 15:45:00",
+                              "status":  "CONFIRMED"
+                          },
+                          {
+                              "id":  38,
+                              "eventId":  5,
+                              "studentId":  1,
+                              "date":  "2026-11-19 14:48:37",
+                              "status":  "CONFIRMED"
+                          },
+                          {
+                              "id":  39,
+                              "eventId":  9,
+                              "studentId":  1,
+                              "date":  "2026-11-19 14:51:45",
+                              "status":  "CONFIRMED"
+                          },
+                          {
+                              "id":  40,
+                              "eventId":  2,
+                              "studentId":  1,
+                              "date":  "2026-11-19 14:53:46",
                               "status":  "CONFIRMED"
                           }
                       ],

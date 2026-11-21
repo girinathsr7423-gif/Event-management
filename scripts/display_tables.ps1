@@ -1,4 +1,4 @@
-﻿# ==============================================================================
+# ==============================================================================
 # Velalar College of Engineering and Technology | Department of IT
 # Scenario 1: College Event Management & Participation Analysis System (Reg: 31)
 # Terminal Data Table Generator & Analytical Query Executor
