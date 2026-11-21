@@ -25,7 +25,7 @@
 
 | Course Code | Course Name | Deliverables Covered |
 |:---|:---|:---|
-| **25ITT33** | **Software Engineering** | SRS Document (IEEE 830), System Architecture, Use Case & Class Diagrams, Software Testing Techniques & Test Cases. |
+| **25ITT33** | **Software Engineering** | Full 5-Unit Master Document: Process Models (Agile), Functional/NFR Specs, 3-Tier & DAO Architecture, Component/Class/Use Case Diagrams, Black-Box (BVA/EP) & White-Box (Basis Path $V(G)=4$) Testing, LOC & COCOMO Cost Model. |
 | **25ITT32** | **Java Programming** | Object-Oriented Application (Classes, Inheritance, Packages, Custom Exceptions, Multithreading, Generics, Collections, Lambdas & Streams, JDBC). |
 | **25ITT31** | **Database Management Systems** | Relational Database Schema, ER Diagram, Normalization (1NF, 2NF, 3NF, BCNF), DDL/DML SQL scripts, Analytical Queries, Views, and Triggers. |
 | **25ITC31** | **Foundations of Data Science** | Database Retrieval, Data Preprocessing & Cleaning (Pandas/NumPy), EDA, Visualizations with Matplotlib & Seaborn, Jupyter Notebook. |
@@ -45,16 +45,20 @@
 ```text
 Event-Management-System/
 ├── docs/                                          # Software Engineering & Design Documents
+│   ├── Software_Engineering_Course_Documentation.md # Full 5-Unit Master SE Documentation (Units 1-5)
 │   ├── SRS_Document.md                            # Comprehensive IEEE 830 SRS Document
 │   ├── System_Architecture.md                     # 3-Tier Layered Architecture Breakdown
-│   ├── Design_Diagrams.md                         # Use Case, Class, Sequence & ER Diagrams
+│   ├── Design_Diagrams.md                         # Use Case, Class, Component, Sequence & ER Diagrams
 │   ├── Database_Design_and_Normalization.md       # Normalization proofs (1NF -> BCNF)
 │   ├── Software_Testing_Document.md               # 14 Test Cases with Expected vs Actual Results
 │   └── diagrams/                                  # High-resolution SVG Diagrams
-│       ├── use_case_diagram.svg
-│       ├── class_diagram.svg
-│       ├── architecture_diagram.svg
-│       └── er_diagram.svg
+│       ├── process_model_diagram.svg              # Unit 1: Agile Incremental Sprint Lifecycle
+│       ├── use_case_diagram.svg                   # Unit 2: Use Case Model
+│       ├── architecture_diagram.svg               # Unit 3: 3-Tier Layered Architecture
+│       ├── class_diagram.svg                      # Unit 3: UML Class Diagram
+│       ├── component_diagram.svg                  # Unit 3: Component-Level Design
+│       ├── control_flow_graph_white_box.svg       # Unit 4: White-Box Basis Paths V(G)=4
+│       └── er_diagram.svg                         # Relational Database ER Model
 ├── database/                                      # Relational Database Assets
 │   ├── schema.sql                                 # DDL: Tables, Constraints, Indexes, Triggers
 │   ├── seed_data.sql                              # DML: Comprehensive sample dataset (IT, CSE, ECE, AI&DS)

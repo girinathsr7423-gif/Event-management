@@ -15,7 +15,7 @@ The Use Case diagram illustrates the functional interactions between the primary
 flowchart LR
     subgraph Actors
         Admin["Administrator / Organizer"]
-        Student["Student (Participant)"]
+        Student["Student (Participant - Reg 31)"]
         Analyst["Python Analytics Engine"]
     end
 
@@ -45,10 +45,51 @@ flowchart LR
     Analyst --> UC8
     UC8 -.->|<<reads>>| UC7
 ```
+*Vector diagram file:* [`docs/diagrams/use_case_diagram.svg`](file:///c:/Users/madha/OneDrive/Desktop/Event%20management/docs/diagrams/use_case_diagram.svg)
 
 ---
 
-## 2. UML Class Diagram
+## 2. Overall System Architecture Diagram
+
+```mermaid
+flowchart TD
+    subgraph Tier 1: Presentation Layer
+        AdminUI["Administrator Console"]
+        StudentUI["Student Portal & CLI"]
+        WebUI["Web Dashboard (Localhost:8080)"]
+    end
+
+    subgraph Tier 2: Application & Business Logic
+        ES["EventService (Validation Engine)"]
+        RS["ReportService (Java 8 Streams)"]
+        DAO["DAO Persistence Layer (EventDAO, RegDAO, etc.)"]
+    end
+
+    subgraph Tier 3: Database & Persistence Layer
+        DB[("Relational Database\n(SQLite / MySQL)\nNormalized to BCNF")]
+    end
+
+    subgraph Tier 4: Data Science Analytics Pipeline
+        PY["Python Extraction Engine (read_sql)"]
+        EDA["Pandas Wrangling & Cleaning"]
+        VIS["Matplotlib & Seaborn Visualizations"]
+    end
+
+    AdminUI --> ES
+    StudentUI --> ES
+    WebUI --> ES
+    ES --> DAO
+    RS --> DAO
+    DAO --> DB
+    DB --> PY
+    PY --> EDA
+    EDA --> VIS
+```
+*Vector diagram file:* [`docs/diagrams/architecture_diagram.svg`](file:///c:/Users/madha/OneDrive/Desktop/Event%20management/docs/diagrams/architecture_diagram.svg)
+
+---
+
+## 3. UML Class Diagram
 
 The Class Diagram reflects the Object-Oriented design implemented in the Java source code (`com.eventmanagement.*`), demonstrating encapsulation, inheritance, interfaces, associations, and custom exceptions.
 
@@ -65,13 +106,10 @@ classDiagram
         -String venue
         -int maxCapacity
         -int currentRegistrations
-        +getEventId() int
-        +getEventName() String
-        +getCategory() String
-        +getMaxCapacity() int
-        +getCurrentRegistrations() int
         +hasAvailableSeats() boolean
         +incrementRegistration() void
+        +decrementRegistration() void
+        +getUtilizationRate() double
     }
 
     class Student {
@@ -81,10 +119,6 @@ classDiagram
         -String department
         -String email
         -String contactNumber
-        +getStudentId() int
-        +getRegisterNo() String
-        +getName() String
-        +getDepartment() String
     }
 
     class Registration {
@@ -93,10 +127,6 @@ classDiagram
         -int studentId
         -String registrationDate
         -String status
-        +getRegistrationId() int
-        +getEventId() int
-        +getStudentId() int
-        +getStatus() String
     }
 
     class Attendance {
@@ -104,9 +134,7 @@ classDiagram
         -int registrationId
         -String status
         -String markedAt
-        +getAttendanceId() int
-        +getRegistrationId() int
-        +getStatus() String
+        +isPresent() boolean
     }
 
     class Feedback {
@@ -115,27 +143,23 @@ classDiagram
         -int rating
         -String comments
         -String submittedAt
-        +getFeedbackId() int
-        +getRating() int
-        +getComments() String
     }
 
     class EventService {
         -EventDAO eventDAO
         -RegistrationDAO regDAO
-        -FeedbackDAO feedbackDAO
-        +registerStudentForEvent(int eventId, int studentId) Registration
-        +markAttendance(int registrationId, String status) boolean
-        +submitFeedback(int registrationId, int rating, String comments) boolean
-        +getEventSummaryReport(int eventId) String
+        +registerStudent(int eventId, int studentId) Registration
+        +cancelRegistration(int regId) boolean
+        +markAttendance(int regId, String status) boolean
+        +submitFeedback(int regId, int rating, String comments) boolean
     }
 
     class DuplicateRegistrationException {
-        +DuplicateRegistrationException(String message)
+        +DuplicateRegistrationException(String msg)
     }
 
     class EventFullException {
-        +EventFullException(String message)
+        +EventFullException(String msg)
     }
 
     Event "1" o-- "0..*" Registration : receives
@@ -147,25 +171,63 @@ classDiagram
     EventService ..> DuplicateRegistrationException : throws
     EventService ..> EventFullException : throws
 ```
+*Vector diagram file:* [`docs/diagrams/class_diagram.svg`](file:///c:/Users/madha/OneDrive/Desktop/Event%20management/docs/diagrams/class_diagram.svg)
 
 ---
 
-## 3. Sequence Diagram: Student Event Registration
+## 4. UML Component Diagram (Component-Level Design)
 
-This sequence diagram depicts the transaction flow when a student attempts to register for an event, illustrating business validations (capacity check and duplicate check).
+The Component Diagram details the internal building blocks, interfaces (`IEventService`, `IPersistenceDAO`), and physical dependencies between the presentation, service, persistence, and analytical components.
+
+```mermaid
+flowchart TD
+    subgraph UIComponent [Presentation Component]
+        MainApp["Main.java (Console UI)"]
+        WebDash["Web Dashboard (HTML5/JS)"]
+        TableRunner["Terminal Table Viewer"]
+    end
+
+    subgraph ServiceComponent [Business Service Component]
+        ES["EventService.java\n(Capacity & Duplicate Logic)"]
+        RS["ReportService.java\n(Java Streams Aggregator)"]
+    end
+
+    subgraph DAOComponent [Data Access Persistence Component]
+        DAO_Layer["DAO Classes (EventDAO, RegDAO, etc.)"]
+        DBC["DBConnection & DataStore"]
+    end
+
+    subgraph DatabaseComponent [Database Storage Component]
+        SQL_DB[("SQLite 3 / MySQL Database\n(Normalized to BCNF)")]
+    end
+
+    subgraph AnalyticsComponent [Python Data Science Component]
+        PY_Engine["event_analysis.py\n(Pandas / NumPy / Seaborn)"]
+    end
+
+    UIComponent -->|IEventService| ServiceComponent
+    ServiceComponent -->|IPersistenceDAO| DAOComponent
+    DAOComponent -->|JDBC SQL / PreparedStatement| DatabaseComponent
+    DatabaseComponent -->|SQL Retrieval: read_sql()| AnalyticsComponent
+```
+*Vector diagram file:* [`docs/diagrams/component_diagram.svg`](file:///c:/Users/madha/OneDrive/Desktop/Event%20management/docs/diagrams/component_diagram.svg)
+
+---
+
+## 5. Sequence Diagram: Student Event Registration
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Student
-    participant Main as Main (CLI)
+    participant Main as Main (CLI / Web)
     participant Service as EventService
     participant RegDAO as RegistrationDAO
     participant EventDAO as EventDAO
     participant DB as Relational Database
 
     Student->>Main: Request Registration(eventId, studentId)
-    Main->>Service: registerStudentForEvent(eventId, studentId)
+    Main->>Service: registerStudent(eventId, studentId)
     
     Service->>EventDAO: getEventById(eventId)
     EventDAO->>DB: SELECT * FROM events WHERE event_id = ?
@@ -183,23 +245,23 @@ sequenceDiagram
         
         alt Student already registered
             Service-->>Main: throw DuplicateRegistrationException("Already registered")
-            Main-->>Student: Display "Duplicate Registration Not Allowed!"
+            Main-->>Student: Display "Duplicate Registration Prohibited!"
         else Valid New Registration
             Service->>RegDAO: insertRegistration(eventId, studentId)
             RegDAO->>DB: INSERT INTO registrations VALUES (...)
             DB-->>RegDAO: Success (registration_id)
-            Service->>EventDAO: incrementRegisteredCount(eventId)
+            Service->>EventDAO: incrementRegistrationCount(eventId)
             EventDAO->>DB: UPDATE events SET current_registrations = current_registrations + 1
             DB-->>EventDAO: OK
             Service-->>Main: Registration Object
-            Main-->>Student: Display "Registration Successful! ID: REG-..."
+            Main-->>Student: Display "Registration Successful! Status: CONFIRMED"
         end
     end
 ```
 
 ---
 
-## 4. Entity-Relationship (ER) Diagram
+## 6. Entity-Relationship (ER) Diagram
 
 ```mermaid
 erDiagram
@@ -251,3 +313,4 @@ erDiagram
         datetime submitted_at
     }
 ```
+*Vector diagram file:* [`docs/diagrams/er_diagram.svg`](file:///c:/Users/madha/OneDrive/Desktop/Event%20management/docs/diagrams/er_diagram.svg)
